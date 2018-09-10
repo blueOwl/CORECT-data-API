@@ -9,12 +9,12 @@ API sends a response as a JSON object with two mandatory keys
 
 `data` and `format`.
 
-~~
+~~~
 {
    "data": [ ... ],
    "format": "..."
 }
-~~
+~~~
 ## 3. Queries
 
 The following table lists all API endpoints currently available at 
@@ -37,14 +37,14 @@ To download all original data files, request the download url by
 
 **Return example:**
 
-~~
+~~~
 {"format":"links",
 "data":
 	["http://206.189.218.218:5000/api/download/1",
 	"http://206.189.218.218:5000/api/download/2",
 	...
 }
-~~
+~~~
 
 ### 3.2 Region query
 
@@ -62,14 +62,14 @@ To query all variants within a region, send `GET` request to
 
 `http://206.189.218.218:5000/api/region?chrom=chr2&start=100000&end=100100`
 
-~~
+~~~
 {
     "data": [
         "2\t100008\t2:100008:T:A\tT\tA\t.\tPASS\t.\tintergenic\t.\t.\tENSG00000184731:ENST00000327669(dist=53623),ENSG00000227061:ENST00000437798(dist=97561)\t.\t.\t.\t.(0):intergenic(1)\tintergenic_region\tMODIFIER\t.\t.\t.\t.\tFAM110C-AC079779.7\tENSG00000184731-ENSG00000227061\tn.100008T>A\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\tFAM110C-AC079779.7(1):intergenic_region(1)\tintergenic_variant..."
     ],
     "format": "vcf"
 }
-~~
+~~~
 
 ### 3.3 Single variant query
 To query a single variant, send `GET` request to 
