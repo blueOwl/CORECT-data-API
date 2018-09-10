@@ -1,0 +1,4 @@
+data/
+.vir/
+__pycache__/
+*.py[cod]
