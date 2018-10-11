@@ -2,17 +2,27 @@
 
 ## 1. Constraints
 
-To do ...
+### 1.1 Iterms per Request
+
+The maxium mutation number returned per request is 1,000,000.
+
+
+### 1.2 IP address
+
+All request should from USC inner IP address.
+
+
 
 ## 2. Responses
-API sends a response as a JSON object with two mandatory keys 
-
-`data` and `format`.
+API sends a response as a JSON object.
 
 ~~~
 {
+   "status": "success/fail"
    "data": [ ... ],
-   "format": "..."
+   "format": "...",
+   "header":[...],
+   "next_page":""
 }
 ~~~
 ## 3. Queries
@@ -28,6 +38,7 @@ The following table lists all API endpoints currently available at
 |`/variant`|Query single variant by chromosomal position or identifier.|
 |`/region`|Query all variants within a chromosomal region.|
 |`/gene`|Query all variants within a gene.|
+|`/batch`|Upload a querying file and do a batch querying job|
 
 ### 3.1 Get Original Data Files
 
@@ -96,3 +107,20 @@ To query a single variant, send `GET` request to
 ### 3.4 Gene query
 
 to do
+
+### 3.5 Batch query
+To query a batch of variants, send `POST` request to 
+
+`http://206.189.218.218:5000/api/batch` along with a query file.The following table lists all supported parameters.
+
+|Parameter | Required | Description |
+|------------|---------|----|
+|`tmp_file `| No|Chromosome name.|
+
+
+#### 3.5.1 Query file foramt
+#### 3.5.2 Request with parameter tmp file
+#### 3.5.2 Request without parameter tmp file
+## 4. R package
+### 4.1 R package Installation
+### 4.2 R package Usage
