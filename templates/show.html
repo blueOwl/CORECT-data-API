@@ -35,7 +35,7 @@
 
 				<div class="accordion" id="single_items">
 					{% for item in single_items %}
-					{{items_tem(item, holder='', num='', add_class='', par='single_items')}}
+					{{items_tem(item, holder='', num='', add_class='header_option', par='single_items')}}
 					{% endfor %}
 				</div>
 
@@ -59,7 +59,7 @@
 								<div class="accordion" id="par_{{item.key}}">
 									{% for sub_item in sub_items[item.v] %}
 									{% set par = 'par_' + item.key%}
-									{{items_tem(sub_item, holder='|', num='', add_class='', par=par)}}
+									{{items_tem(sub_item, holder='|', num='', add_class='header_option', par=par)}}
 									{% endfor %}
 								</div>
 							</div>
@@ -72,7 +72,10 @@
 				<h1> API examples(with default annotation options)</h1>
 				<button id="exp_variant" type="button" class="btn btn-success">Get Single Variant</button>
 				<button id="exp_region" type="button" class="btn btn-success">Get Variants in a Region</button>
-				
+				<div class= "form-check">
+					<input type="checkbox" class="form-check-input" id="use_default" checked>
+					<label class="form-check-label" for="use_default">use default options</label>
+				</div>
 				<div class="row">
 					<div class="col">
 						<h5>request</h5>
@@ -117,13 +120,17 @@
 
 			}
 		});
-		$("#download").click(
-			function () {
-				var select = $("input:checked").not(".has_child_check");
+		function get_header() {
+				var select = $("input:checked.header_option").not(".has_child_check");
 				var items = [];
 				for (i = 0; i < select.length; i++) {
-					items.push(select[i].value.replace("d_", ""));
+					items.push(select[i].value.replace("^d_", ""));
 				}
+				return items;
+		}
+		$("#download").click(
+			function () {
+				var items = get_header();
 				console.log(items)
 				var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ "annotation_headers": items }));
 				var dlAnchorElem = document.getElementById('downloadAnchorElem');
@@ -191,9 +198,13 @@
 				});
 			}
 		});
+		default_options = { 'annotation_headers': ["1000Gp3_AC", "1000Gp3_AF", "1000Gp3_AFR_AC", "1000Gp3_AFR_AF", "1000Gp3_AMR_AC", "1000Gp3_AMR_AF", "1000Gp3_EAS_AC", "1000Gp3_EAS_AF", "1000Gp3_EUR_AC", "1000Gp3_EUR_AF", "1000Gp3_SAS_AC", "1000Gp3_SAS_AF", "ANNOVAR_refseq_Closest_gene(intergenic_only)", "ANNOVAR_refseq_Effect", "ANNOVAR_refseq_Exon_Rank", "ANNOVAR_refseq_Gene_ID", "ANNOVAR_refseq_HGVSc", "ANNOVAR_refseq_HGVSp", "ANNOVAR_refseq_Transcript_ID", "ANNOVAR_refseq_summary", "ANNOVAR_ucsc_Closest_gene(intergenic_only)", "ANNOVAR_ucsc_Effect", "ANNOVAR_ucsc_Exon_Rank", "ANNOVAR_ucsc_Gene_ID", "ANNOVAR_ucsc_HGVSc", "ANNOVAR_ucsc_HGVSp", "ANNOVAR_ucsc_Transcript_ID", "ANNOVAR_ucsc_summary", "COSMIC_CNT", "COSMIC_ID", "FANTOM5_CAGE_peak_permissive", "FANTOM5_CAGE_peak_robust", "FANTOM5_enhancer_differentially_expressed_tissue_cell", "FANTOM5_enhancer_expressed_tissue_cell", "FANTOM5_enhancer_permissive", "FANTOM5_enhancer_robust", "FANTOM5_enhancer_target", "Uniprot_aapos", "Uniprot_acc", "Uniprot_id"] };
 		$('#exp_variant').click(
 			function () {
-				r = { 'annotation_headers': ["1000Gp3_AC", "1000Gp3_AF", "1000Gp3_AFR_AC", "1000Gp3_AFR_AF", "1000Gp3_AMR_AC", "1000Gp3_AMR_AF", "1000Gp3_EAS_AC", "1000Gp3_EAS_AF", "1000Gp3_EUR_AC", "1000Gp3_EUR_AF", "1000Gp3_SAS_AC", "1000Gp3_SAS_AF", "ANNOVAR_refseq_Closest_gene(intergenic_only)", "ANNOVAR_refseq_Effect", "ANNOVAR_refseq_Exon_Rank", "ANNOVAR_refseq_Gene_ID", "ANNOVAR_refseq_HGVSc", "ANNOVAR_refseq_HGVSp", "ANNOVAR_refseq_Transcript_ID", "ANNOVAR_refseq_summary", "ANNOVAR_ucsc_Closest_gene(intergenic_only)", "ANNOVAR_ucsc_Effect", "ANNOVAR_ucsc_Exon_Rank", "ANNOVAR_ucsc_Gene_ID", "ANNOVAR_ucsc_HGVSc", "ANNOVAR_ucsc_HGVSp", "ANNOVAR_ucsc_Transcript_ID", "ANNOVAR_ucsc_summary", "COSMIC_CNT", "COSMIC_ID", "FANTOM5_CAGE_peak_permissive", "FANTOM5_CAGE_peak_robust", "FANTOM5_enhancer_differentially_expressed_tissue_cell", "FANTOM5_enhancer_expressed_tissue_cell", "FANTOM5_enhancer_permissive", "FANTOM5_enhancer_robust", "FANTOM5_enhancer_target", "Uniprot_aapos", "Uniprot_acc", "Uniprot_id"] };
+				if ($("#use_default").checked)
+					r = default_options;
+				else
+					r = {'annotation_headers': get_header()};
 				r.chrom = "chr2";
 				r.pos = 100008;
 				r.ref = "T";
@@ -208,7 +219,10 @@
 		);
 		$('#exp_region').click(
 			function () {
-				r = { 'annotation_headers': ["1000Gp3_AC", "1000Gp3_AF", "1000Gp3_AFR_AC", "1000Gp3_AFR_AF", "1000Gp3_AMR_AC", "1000Gp3_AMR_AF", "1000Gp3_EAS_AC", "1000Gp3_EAS_AF", "1000Gp3_EUR_AC", "1000Gp3_EUR_AF", "1000Gp3_SAS_AC", "1000Gp3_SAS_AF", "ANNOVAR_refseq_Closest_gene(intergenic_only)", "ANNOVAR_refseq_Effect", "ANNOVAR_refseq_Exon_Rank", "ANNOVAR_refseq_Gene_ID", "ANNOVAR_refseq_HGVSc", "ANNOVAR_refseq_HGVSp", "ANNOVAR_refseq_Transcript_ID", "ANNOVAR_refseq_summary", "ANNOVAR_ucsc_Closest_gene(intergenic_only)", "ANNOVAR_ucsc_Effect", "ANNOVAR_ucsc_Exon_Rank", "ANNOVAR_ucsc_Gene_ID", "ANNOVAR_ucsc_HGVSc", "ANNOVAR_ucsc_HGVSp", "ANNOVAR_ucsc_Transcript_ID", "ANNOVAR_ucsc_summary", "COSMIC_CNT", "COSMIC_ID", "FANTOM5_CAGE_peak_permissive", "FANTOM5_CAGE_peak_robust", "FANTOM5_enhancer_differentially_expressed_tissue_cell", "FANTOM5_enhancer_expressed_tissue_cell", "FANTOM5_enhancer_permissive", "FANTOM5_enhancer_robust", "FANTOM5_enhancer_target", "Uniprot_aapos", "Uniprot_acc", "Uniprot_id"] };
+				if ($("#use_default").checked)
+					r = default_options;
+				else
+					r = {'annotation_headers': get_header()};
 				r.chrom = "chr2";
 				r.start = 100007;
 				r.end = 101000;

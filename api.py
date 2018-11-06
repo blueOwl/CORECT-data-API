@@ -8,20 +8,25 @@ import json
 app = Flask(__name__, static_url_path='')
 
 
-def header_filter(h):
-	s = str(h)
-	if s == "chr":return "#" + s
-	return s
-
 def get_index_list(index_config=None):
 	f = open(config.HEADER_INDEX)
 	s = f.read()
 	header_index = json.loads(s)
+	def header_filter(h):
+		h = [str(i) for i in h]
+		s = []
+		for i in h:
+			if i in header_index:
+				if i == "chr":i +="#"
+				s.append(i)
+			else:
+				print(i)
+		return s
 	reverse_header = {header_index[k]:k for k in header_index}
 	if not index_config:
 		index_set = set(header_index.values()).union(config.HEADER_BASIC)
 	else:
-		index_set = set( [header_index[header_filter(i)] for i in index_config ]).union(config.HEADER_BASIC)
+		index_set = set( [header_index[i] for i in header_filter(index_config) ]).union(config.HEADER_BASIC)
 	index_list = sorted(list(index_set))
 	return index_list, [reverse_header[i] for i in index_list]
 
