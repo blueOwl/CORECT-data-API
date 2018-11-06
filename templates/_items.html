@@ -1,0 +1,19 @@
+{% macro items_tem(item,  holder='', num='', add_class='', par='single_items') -%}
+<div class="">
+    <div class="" id="header{{item.key}}">
+      <h5 class="mb-0">
+	{{ holder }}
+        <input class="{{add_class}}" type="checkbox" id="d_{{item.key}}" name="d_{{item.key}}" value="{{item.v}}" />
+	<button class="btn btn-link " type="button" data-toggle="collapse" data-target="#d{{item.key}}" aria-expanded="false" aria-controls="d{{item.key}}">
+	{{item.key}}
+        </button>
+	{{num}}
+      </h5>
+    </div>
+
+    <div id="d{{item.key}}" class="collapse" aria-labelledby="header{{item.key}}" data-parent="#{{par}}">
+      <div class="">{{item.exp}} {{item.details}}
+      </div>
+    </div>
+</div>
+{%- endmacro %}

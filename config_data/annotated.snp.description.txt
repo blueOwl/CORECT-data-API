@@ -1,0 +1,744 @@
+Column description:
+	#chr: chromosome number
+	pos: position (hg38)
+	ref: reference allele
+	alt: alternative allele
+	chr_hg19: chromosome number based on human reference sequence version hg19 (GRCh19)
+	pos_hg19: position based on human reference sequence version hg19 (GRCh19)
+	ref_hg19: reference allele based on human reference sequence version hg19 (GRCh19)
+	alt_hg19: alternative allele based on human reference sequence version hg19 (GRCh19)
+		this column shall be identical to column "alt" if ref_hg19=ref_hg38 is Y(es) 
+		or be "." if ref_hg19=ref_hg38 is N(o) 
+	ref_hg19=ref_hg38: whether the reference allele based on hg19 identical to that based on hg38
+	SnpEff_ensembl_Effect: SnpEff consequence with Ensembl as gene model. 
+		Multiple consequences are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_Effect_impact: consequence impacts predicted by SnpEff. 
+		Multiple impacts are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_Sequence_feature: SnpEff consequence features. 
+		Multiple features are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_Sequence_feature_impact: sequence feature impacts predicted by SnpEff. 
+		Multiple impacts are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_Transcript_ID: Ensembl transcript IDs corresponding to consequences. 
+		Multiple IDs are separated by "|"
+	SnpEff_ensembl_Transcript_biotype: biotype of transcript. 
+		Multiple biotypes are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_Gene_name: Ensembl gene names corresponding to transcripts. 
+		Multiple gene names are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_Gene_ID: Ensembl gene IDs corresponding to transcripts. 
+		Multiple IDs are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_HGVSc: variant in format of HGVSc.
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_HGVSp: variant in format of HGVSp.
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_Protein_position/Protein_len: protein position and length as to a transcript.
+		Format: protein position/protein length
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_CDS_position/CDS_len: CDS position and length as to a transcript.
+		Format: CDS position/CDS length
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_cDNA_position/cDNA_len: cDNA position and length as to a transcript.
+		Format: cDNA position/cDNA length
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_Exon_or_intron_rank/total: exon (intron) rank and total number as to a transcript.
+		Format: exon or intron rank / total exon or intron number 
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_Distance_to_feature: distance to feature.
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_Warnings: SnpEff warnings.
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_ensembl_Transcript_ID
+	SnpEff_ensembl_LOF/NMD: LOF or NMD by SnpEff.
+	SnpEff_ensembl_LOF/NMD_gene_name: gene name corresponding to SnpEff_ensembl_LOF/NMD.
+	SnpEff_ensembl_LOF/NMD_gene_ID: gene ID corresponding to SnpEff_ensembl_LOF/NMD.
+	SnpEff_ensembl_LOF/NMD_num_transcripts_affected: number of transcripts affected
+		corresponding to SnpEff_ensembl_LOF/NMD.
+	SnpEff_ensembl_LOF/NMD_percent_transcripts_affected: percentage of transcripts affected
+		corresponding to SnpEff_ensembl_LOF/NMD.
+	SnpEff_ensembl_TF_binding_effect: effect of TF binding by SnpEff
+	SnpEff_ensembl_TF_name: name of the TF
+	SnpEff_ensembl_TF_ID: ID of the TF
+	SnpEff_ensembl_summary: SnpEff consequence summary with Ensembl as gene model. 
+		Format: GeneID(total number of transcripts):consequence#1(number of transcripts affected)
+		consequence#2(number of transcripts affected)... Multiple genes are separated by "|"
+	VEP_ensembl_Consequence: VEP consequence with Ensembl as gene model. 
+		Multiple consequences are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_Transcript_ID: Ensembl transcript IDs corresponding to consequences. 
+		Multiple IDs are separated by "|"
+	VEP_ensembl_Gene_Name: Ensembl gene names corresponding to transcripts. 
+		Multiple gene names are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_Gene_ID: Ensembl gene IDs corresponding to transcripts. 
+		Multiple IDs are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_Protein_ID: Ensembl protein IDs corresponding to transcripts. 
+		Multiple IDs are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_CCDS: CCDS IDs corresponding to transcripts. 
+		Multiple IDs are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_SWISSPROT: SWISSPROT IDs corresponding to transcripts. 
+		Multiple IDs are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_Codon_Change_or_Distance: codon change or distance as to a transcript. 
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_Amino_Acid_Change: amino acid change as to a transcript. 
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+		"*" represents a stop codon
+	VEP_ensembl_HGVSc: variant in format of HGVSc.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_HGVSp: variant in format of HGVSp.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_cDNA_position: cDNA position as to a transcript.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_CDS_position: CDS position as to a transcript.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_Protein_position: protein position as to a transcript.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_Exon_or_Intron_Rank: exon (intron) rank as to a transcript.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_STRAND: strand of CDS as to a transcript.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_CANONICAL: whether a transcript is canonical.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_LoF: LOF by LOFTEE.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_LoF_filter: LOF filter by LOFTEE.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_LoF_flags: LOF flags by LOFTEE.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_LoF_info: LOF information by LOFTEE.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_ensembl_Transcript_ID
+	VEP_ensembl_summary: VEP consequence summary with Ensembl as gene model. 
+		Format: GeneID(total number of transcripts):consequence#1(number of transcripts affected)
+		consequence#2(number of transcripts affected)... Multiple genes are separated by "|"
+	ANNOVAR_refseq_Effect: ANNOVAR consequence with RefSeq as gene model. 
+		Multiple consequences are separated by "|"
+		The order corresponds to ANNOVAR_refseq_Transcript_ID
+	ANNOVAR_refseq_Transcript_ID: RefSeq transcript IDs corresponding to consequences. 
+		Multiple IDs are separated by "|"
+	ANNOVAR_refseq_Gene_ID: RefSeq gene IDs corresponding to transcripts. 
+		Multiple IDs are separated by "|"
+		The order corresponds to ANNOVAR_refseq_Transcript_ID
+	ANNOVAR_refseq_Closest_gene(intergenic_only): cloest genes if the variant is intergenic. 
+		Format: gene ID1:transcript ID1(dist=distance),gene ID2:transcript ID2(dist=distance)
+	ANNOVAR_refseq_HGVSc: variant in format of HGVSc.
+		Multiple annotations are separated by "|"
+		The order corresponds to ANNOVAR_refseq_Transcript_ID
+	ANNOVAR_refseq_HGVSp: variant in format of HGVSp.
+		Multiple annotations are separated by "|"
+		The order corresponds to ANNOVAR_refseq_Transcript_ID
+	ANNOVAR_refseq_Exon_Rank: exon number the variant locates (if applicable) 
+		Multiple annotations are separated by "|"
+		The order corresponds to ANNOVAR_refseq_Transcript_ID
+	ANNOVAR_refseq_summary: ANNOVAR consequence summary with RefSeq as gene model. 
+		Format: GeneID(total number of transcripts):consequence#1(number of transcripts affected)
+		consequence#2(number of transcripts affected)... Multiple genes are separated by "|"
+	SnpEff_refseq_Effect: SnpEff consequence with RefSeq as gene model. 
+		Multiple consequences are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_Effect_impact: consequence impacts predicted by SnpEff. 
+		Multiple impacts are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_Sequence_feature: SnpEff consequence features. 
+		Multiple features are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_Sequence_feature_impact: sequence feature impacts predicted by SnpEff. 
+		Multiple impacts are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_Transcript_ID: RefSeq transcript IDs corresponding to consequences. 
+		Multiple IDs are separated by "|"
+	SnpEff_refseq_Transcript_biotype: biotype of transcript. 
+		Multiple biotypes are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_Gene_name: RefSeq gene names corresponding to transcripts. 
+		Multiple gene names are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_Gene_ID: RefSeq gene IDs corresponding to transcripts. 
+		Multiple IDs are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_HGVSc: variant in format of HGVSc.
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_HGVSp: variant in format of HGVSp.
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_Protein_position/Protein_len: protein position and length as to a transcript.
+		Format: protein position/protein length
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_CDS_position/CDS_len: CDS position and length as to a transcript.
+		Format: CDS position/CDS length
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_cDNA_position/cDNA_len: cDNA position and length as to a transcript.
+		Format: cDNA position/cDNA length
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_Exon_or_intron_rank/total: exon (intron) rank and total number as to a transcript.
+		Format: exon or intron rank / total exon or intron number 
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_Distance_to_feature: distance to feature.
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_Warnings: SnpEff warnings.
+		Multiple annotations are separated by "|"
+		The order corresponds to SnpEff_refseq_Transcript_ID
+	SnpEff_refseq_LOF/NMD: LOF or NMD by SnpEff.
+	SnpEff_refseq_LOF/NMD_gene_name: gene name corresponding to SnpEff_refseq_LOF/NMD.
+	SnpEff_refseq_LOF/NMD_gene_ID: gene ID corresponding to SnpEff_refseq_LOF/NMD.
+	SnpEff_refseq_LOF/NMD_num_transcripts_affected: number of transcripts affected
+		corresponding to SnpEff_refseq_LOF/NMD.
+	SnpEff_refseq_LOF/NMD_percent_transcripts_affected: percentage of transcripts affected
+		corresponding to SnpEff_refseq_LOF/NMD.
+	SnpEff_refseq_TF_binding_effect: effect of TF binding by SnpEff
+	SnpEff_refseq_TF_name: name of the TF
+	SnpEff_refseq_TF_ID: ID of the TF
+	SnpEff_refseq_summary: SnpEff consequence summary with RefSeq as gene model. 
+		Format: GeneID(total number of transcripts):consequence#1(number of transcripts affected)
+		consequence#2(number of transcripts affected)... Multiple genes are separated by "|"
+	VEP_refseq_Consequence: VEP consequence with RefSeq as gene model. 
+		Multiple consequences are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_Transcript_ID: RefSeq transcript IDs corresponding to consequences. 
+		Multiple IDs are separated by "|"
+	VEP_refseq_Gene_Name: RefSeq gene names corresponding to transcripts. 
+		Multiple gene names are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_Gene_ID: RefSeq gene IDs corresponding to transcripts. 
+		Multiple IDs are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_Protein_ID: RefSeq protein IDs corresponding to transcripts. 
+		Multiple IDs are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_Codon_Change_or_Distance: codon change or distance as to a transcript. 
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_Amino_Acid_Change: amino acid change as to a transcript. 
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+		"*" represents a stop codon
+	VEP_refseq_HGVSc: variant in format of HGVSc.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_HGVSp: variant in format of HGVSp.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_cDNA_position: cDNA position as to a transcript.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_CDS_position: CDS position as to a transcript.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_Protein_position: protein position as to a transcript.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_Exon_or_Intron_Rank: exon (intron) rank as to a transcript.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_STRAND: strand of CDS as to a transcript.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_CANONICAL: whether a transcript is canonical.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_LoF: LOF by LOFTEE.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_LoF_filter: LOF filter by LOFTEE.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_LoF_flags: LOF flags by LOFTEE.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_LoF_info: LOF information by LOFTEE.
+		Multiple annotations are separated by "|"
+		The order corresponds to VEP_refseq_Transcript_ID
+	VEP_refseq_summary: VEP consequence summary with RefSeq as gene model. 
+		Format: GeneID(total number of transcripts):consequence#1(number of transcripts affected)
+		consequence#2(number of transcripts affected)... Multiple genes are separated by "|"
+	ANNOVAR_ucsc_Effect: ANNOVAR consequence with UCSC knownGene as gene model. 
+		Multiple consequences are separated by "|"
+		The order corresponds to ANNOVAR_ucsc_Transcript_ID
+	ANNOVAR_ucsc_Transcript_ID: UCSC transcript IDs corresponding to consequences. 
+		Multiple IDs are separated by "|"
+	ANNOVAR_ucsc_Gene_ID: UCSC gene IDs corresponding to transcripts. 
+		Multiple IDs are separated by "|"
+		The order corresponds to ANNOVAR_ucsc_Transcript_ID
+	ANNOVAR_ucsc_Closest_gene(intergenic_only): cloest genes if the variant is intergenic. 
+		Format: gene ID1:transcript ID1(dist=distance),gene ID2:transcript ID2(dist=distance)
+	ANNOVAR_ucsc_HGVSc: variant in format of HGVSc.
+		Multiple annotations are separated by "|"
+		The order corresponds to ANNOVAR_ucsc_Transcript_ID
+	ANNOVAR_ucsc_HGVSp: variant in format of HGVSp.
+		Multiple annotations are separated by "|"
+		The order corresponds to ANNOVAR_ucsc_Transcript_ID
+	ANNOVAR_ucsc_Exon_Rank: exon number the variant locates (if applicable) 
+		Multiple annotations are separated by "|"
+		The order corresponds to ANNOVAR_ucsc_Transcript_ID
+	ANNOVAR_ucsc_summary: ANNOVAR consequence summary with UCSC as gene model. 
+		Format: GeneID(total number of transcripts):consequence#1(number of transcripts affected)
+		consequence#2(number of transcripts affected)... Multiple genes are separated by "|"
+	rs_dbSNP150: rs number from dbSNP150
+	sno_miRNA_name: the name of snoRNA or miRNA if the site is located within (from miRBase/snoRNABase)
+	sno_miRNA_type: the type of snoRNA or miRNA (from miRBase/snoRNABase)
+	UTR3_miRNA_target: the gene-miRNA pair, if the site is located within a predicted (conserved) 
+		target of conserved miRNA families(from TargetScan)
+	TargetScan_context++_score_percentile: context++ score is a mearsue of favarableness of the 
+		site for the miRNA family. The higer the percentile, the more favarable (from TargetScan)
+	splicing_consensus_ada_score: splicing-change prediction for splicing consensus SNPs 
+		based on adaboost. If the score >0.6, it predicts that the splicing will be changed,
+		otherwise it predicts the splicing will not be changed.
+	splicing_consensus_rf_score: splicing-change prediction for splicing consensus SNPs 
+		based on random forest. If the score >0.6, it predicts that the splicing will be changed,
+		otherwise it predicts the splicing will not be changed
+	GWAS_catalog_rs: rs number according to GWAS catalog
+	GWAS_catalog_trait: associated trait according to GWAS catalog
+	GWAS_catalog_pubmedid: pubmedid of the paper describing the association
+	GRASP_rs: rs number by GRASP
+	GRASP_PMID: PMID number by GRASP
+	GRASP_p-value: p-value of the association test based on the SNP
+	GRASP_phenotype: phenotype the SNP associated with
+	GRASP_ancestry: population ancestry of the samples on which the association test was based
+	GRASP_platform: SNP platform on which the association test was based
+	clinvar_rs: rs number by clinvar
+	clinvar_clnsig: clinical significance by clinvar
+		2 - Benign, 3 - Likely benign, 4 - Likely pathogenic, 5 - Pathogenic, 6 - drug response, 
+		7 - histocompatibility. A negative score means the score is for the ref allele
+	clinvar_trait: the trait/disease the clinvar_clnsig referring to
+	clinvar_golden_stars: ClinVar Review Status summary
+		0 - no assertion criteria provided, 1 - criteria provided, single submitter,
+		2 - criteria provided, multiple submitters, no conflicts, 
+		3 - reviewed by expert panel, 4 - practice guideline
+	COSMIC_ID: ID of the SNV at the COSMIC (Catalogue Of Somatic Mutations In Cancer) database
+	COSMIC_CNT: number of samples having this SNV in the COSMIC database
+	GTEx_V6_gene: Ensembl gene ID of the eQTL associated with
+	GTEx_V6_tissue: the tissue expression data in which the eQTL was detected
+	GERP_NR: GERP++ neutral rate
+	GERP_RS: GERP++ RS score, the larger the score, the more conserved the site
+	GERP_RS_rankscore: the rank of the GERP_RS score among all GERP_RS scores in genome
+	SiPhy_29way_logOdds: SiPhy score based on 29 mammals genomes. The larger the score, 
+		the more conserved the site
+	SiPhy_29way_logOdds_rankscore: the rank of the SiPhy_29way_logOdds score among all SiPhy_29way_logOdds scores in genome
+	1000Gp3_AC: Alternative allele counts in the whole 1000 genomes phase 3 (1000Gp3) data.
+	1000Gp3_AF: Alternative allele frequency in the whole 1000Gp3 data.
+	1000Gp3_AFR_AC: Alternative allele counts in the 1000Gp3 African descendent samples.
+	1000Gp3_AFR_AF: Alternative allele frequency in the 1000Gp3 African descendent samples.
+	1000Gp3_EUR_AC: Alternative allele counts in the 1000Gp3 European descendent samples.
+	1000Gp3_EUR_AF: Alternative allele frequency in the 1000Gp3 European descendent samples.
+	1000Gp3_AMR_AC: Alternative allele counts in the 1000Gp3 American descendent samples.
+	1000Gp3_AMR_AF: Alternative allele frequency in the 1000Gp3 American descendent samples.
+	1000Gp3_EAS_AC: Alternative allele counts in the 1000Gp3 East Asian descendent samples.
+	1000Gp3_EAS_AF: Alternative allele frequency in the 1000Gp3 East Asian descendent samples.
+	1000Gp3_SAS_AC: Alternative allele counts in the 1000Gp3 South Asian descendent samples.
+	1000Gp3_SAS_AF: Alternative allele frequency in the 1000Gp3 South Asian descendent samples.
+	UK10K_AC: Alternative allele count in called genotypes in UK10K cohorts.
+	UK10K_AN: Total allele count in called genotypes in UK10K cohorts.
+	UK10K_AF: Alternative allele frequency in called genotypes in UK10K cohorts.
+	TWINSUK_AC: Alternative allele count in called genotypes in UK10K TWINSUK cohort.
+	TWINSUK_AN: Total allele count in called genotypes in UK10K TWINSUK cohort.
+	TWINSUK_AF: Alternative allele frequency in called genotypes in UK10K TWINSUK cohort.
+	ALSPAC_AC: Alternative allele count in called genotypes in UK10K TWINSUK cohort.
+	ALSPAC_AN: Total allele count in called genotypes in UK10K TWINSUK cohort.
+	ALSPAC_AF: Alternative allele frequency in called genotypes in UK10K TWINSUK cohort.
+	ESP6500_AC: Alternative allele counts in the combined African/European American samples of the 
+		NHLBI GO Exome Sequencing Project (ESP6500 data set).
+	ESP6500_AF: Alternative allele frequency in the combined African/European American samples of the 
+		NHLBI GO Exome Sequencing Project (ESP6500 data set).
+	ESP6500_AA_AC: Alternative allele counts in the African American samples of the 
+		NHLBI GO Exome Sequencing Project (ESP6500 data set).
+	ESP6500_AA_AF: Alternative allele frequency in the African American samples of the 
+		NHLBI GO Exome Sequencing Project (ESP6500 data set).
+	ESP6500_EA_AC: Alternative allele counts in the European American samples of the 
+		NHLBI GO Exome Sequencing Project (ESP6500 data set).
+	ESP6500_EA_AF: Alternative allele frequency in the European American samples of the 
+		NHLBI GO Exome Sequencing Project (ESP6500 data set).
+	ExAC_AC: Allele count in total ExAC samples (60,706 samples)
+	ExAC_AF: Allele frequency in total ExAC samples 
+	ExAC_Adj_AC: Adjusted Alt allele counts (DP >= 10 & GQ >= 20) in total ExAC samples
+	ExAC_Adj_AF: Adjusted Alt allele frequency (DP >= 10 & GQ >= 20) in total ExAC samples
+	ExAC_AFR_AC: Adjusted Alt allele counts (DP >= 10 & GQ >= 20) in African & African American ExAC samples
+	ExAC_AFR_AF: Adjusted Alt allele frequency (DP >= 10 & GQ >= 20) in African & African American ExAC samples
+	ExAC_AMR_AC: Adjusted Alt allele counts (DP >= 10 & GQ >= 20) in American ExAC samples
+	ExAC_AMR_AF: Adjusted Alt allele frequency (DP >= 10 & GQ >= 20) in American ExAC samples
+	ExAC_EAS_AC: Adjusted Alt allele counts (DP >= 10 & GQ >= 20) in East Asian ExAC samples
+	ExAC_EAS_AF: Adjusted Alt allele frequency (DP >= 10 & GQ >= 20) in East Asian ExAC samples
+	ExAC_FIN_AC: Adjusted Alt allele counts (DP >= 10 & GQ >= 20) in Finnish ExAC samples
+	ExAC_FIN_AF: Adjusted Alt allele frequency (DP >= 10 & GQ >= 20) in Finnish ExAC samples
+	ExAC_NFE_AC: Adjusted Alt allele counts (DP >= 10 & GQ >= 20) in Non-Finnish European ExAC samples
+	ExAC_NFE_AF: Adjusted Alt allele frequency (DP >= 10 & GQ >= 20) in Non-Finnish European ExAC samples
+	ExAC_SAS_AC: Adjusted Alt allele counts (DP >= 10 & GQ >= 20) in South Asian ExAC samples
+	ExAC_SAS_AF: Adjusted Alt allele frequency (DP >= 10 & GQ >= 20) in South Asian ExAC samples
+	gnomAD_exomes_flag: information from gnomAD exome data indicating whether the variant falling within low-complexity 
+		(lcr) or segmental duplication (segdup) regions. The flag can be either "." for high-quality PASS or not 
+		reported/polymorphic in gnomAD exomes, "lcr" for within lcr, "segdup" for within segdup, or "segdup;lcr" for
+		with both lcr and segdup.
+	gnomAD_exomes_AC: Alternative allele count in the whole gnomAD exome samples (123,136 samples)
+	gnomAD_exomes_AN: Total allele count in the whole gnomAD exome samples (123,136 samples)
+	gnomAD_exomes_AF: Alternative allele frequency in the whole gnomAD exome samples (123,136 samples)
+	gnomAD_exomes_AFR_AC: Alternative allele count in the African/African American gnomAD exome samples (7,652 samples)
+	gnomAD_exomes_AFR_AN: Total allele count in the African/African American gnomAD exome samples (7,652 samples)
+	gnomAD_exomes_AFR_AF: Alternative allele frequency in the African/African American gnomAD exome samples (7,652 samples)
+	gnomAD_exomes_AMR_AC: Alternative allele count in the Latino gnomAD exome samples (16,791 samples)
+	gnomAD_exomes_AMR_AN: Total allele count in the Latino gnomAD exome samples (16,791 samples)
+	gnomAD_exomes_AMR_AF: Alternative allele frequency in the Latino gnomAD exome samples (16,791 samples)
+	gnomAD_exomes_ASJ_AC: Alternative allele count in the Ashkenazi Jewish gnomAD exome samples (4,925 samples)
+	gnomAD_exomes_ASJ_AN: Total allele count in the Ashkenazi Jewish gnomAD exome samples (4,925 samples)
+	gnomAD_exomes_ASJ_AF: Alternative allele frequency in the Ashkenazi Jewish gnomAD exome samples (4,925 samples)
+	gnomAD_exomes_EAS_AC: Alternative allele count in the East Asian gnomAD exome samples (8,624 samples)
+	gnomAD_exomes_EAS_AN: Total allele count in the East Asian gnomAD exome samples (8,624 samples)
+	gnomAD_exomes_EAS_AF: Alternative allele frequency in the East Asian gnomAD exome samples (8,624 samples)
+	gnomAD_exomes_FIN_AC: Alternative allele count in the Finnish gnomAD exome samples (11,150 samples)
+	gnomAD_exomes_FIN_AN: Total allele count in the Finnish gnomAD exome samples (11,150 samples)
+	gnomAD_exomes_FIN_AF: Alternative allele frequency in the Finnish gnomAD exome samples (11,150 samples)
+	gnomAD_exomes_NFE_AC: Alternative allele count in the Non-Finnish European gnomAD exome samples (55,860 samples)
+	gnomAD_exomes_NFE_AN: Total allele count in the Non-Finnish European gnomAD exome samples (55,860 samples)
+	gnomAD_exomes_NFE_AF: Alternative allele frequency in the Non-Finnish European gnomAD exome samples (55,860 samples)
+	gnomAD_exomes_SAS_AC: Alternative allele count in the South Asian gnomAD exome samples (15,391 samples)
+	gnomAD_exomes_SAS_AN: Total allele count in the South Asian gnomAD exome samples (15,391 samples)
+	gnomAD_exomes_SAS_AF: Alternative allele frequency in the South Asian gnomAD exome samples (15,391 samples)
+	gnomAD_exomes_OTH_AC: Alternative allele count in other gnomAD exome samples (2,743 samples)
+	gnomAD_exomes_OTH_AN: Total allele count in other gnomAD exome samples (2,743 samples)
+	gnomAD_exomes_OTH_AF: Alternative allele frequency in other gnomAD exome samples (2,743 samples)
+	gnomAD_genomes_flag: information from gnomAD genome data indicating whether the variant falling within low-complexity 
+		(lcr) or segmental duplication (segdup) regions. The flag can be either "." for high-quality PASS or not 
+		reported/polymorphic in gnomAD genomes, "lcr" for within lcr, "segdup" for within segdup, or "segdup;lcr" for
+		with both lcr and segdup.
+	gnomAD_genomes_AC: Alternative allele count in the whole gnomAD genome samples (15,496 samples)
+	gnomAD_genomes_AN: Total allele count in the whole gnomAD genome samples (15,496 samples)
+	gnomAD_genomes_AF: Alternative allele frequency in the whole gnomAD genome samples (15,496 samples)
+	gnomAD_genomes_AFR_AC: Alternative allele count in the African/African American gnomAD genome samples (4,368 samples)
+	gnomAD_genomes_AFR_AN: Total allele count in the African/African American gnomAD genome samples (4,368 samples)
+	gnomAD_genomes_AFR_AF: Alternative allele frequency in the African/African American gnomAD genome samples (4,368 samples)
+	gnomAD_genomes_AMR_AC: Alternative allele count in the Latino gnomAD genome samples (419 samples)
+	gnomAD_genomes_AMR_AN: Total allele count in the Latino gnomAD genome samples (419 samples)
+	gnomAD_genomes_AMR_AF: Alternative allele frequency in the Latino gnomAD genome samples (419 samples)
+	gnomAD_genomes_ASJ_AC: Alternative allele count in the Ashkenazi Jewish gnomAD genome samples (151 samples)
+	gnomAD_genomes_ASJ_AN: Total allele count in the Ashkenazi Jewish gnomAD genome samples (151 samples)
+	gnomAD_genomes_ASJ_AF: Alternative allele frequency in the Ashkenazi Jewish gnomAD genome samples (151 samples)
+	gnomAD_genomes_EAS_AC: Alternative allele count in the East Asian gnomAD genome samples (811 samples)
+	gnomAD_genomes_EAS_AN: Total allele count in the East Asian gnomAD genome samples (811 samples)
+	gnomAD_genomes_EAS_AF: Alternative allele frequency in the East Asian gnomAD genome samples (811 samples)
+	gnomAD_genomes_FIN_AC: Alternative allele count in the Finnish gnomAD genome samples (1,747 samples)
+	gnomAD_genomes_FIN_AN: Total allele count in the Finnish gnomAD genome samples (1,747 samples)
+	gnomAD_genomes_FIN_AF: Alternative allele frequency in the Finnish gnomAD genome samples (1,747 samples)
+	gnomAD_genomes_NFE_AC: Alternative allele count in the Non-Finnish European gnomAD genome samples (7,509 samples)
+	gnomAD_genomes_NFE_AN: Total allele count in the Non-Finnish European gnomAD genome samples (7,509 samples)
+	gnomAD_genomes_NFE_AF: Alternative allele frequency in the Non-Finnish European gnomAD genome samples (7,509 samples)
+	gnomAD_genomes_OTH_AC: Alternative allele count in other gnomAD genome samples (491 samples)
+	gnomAD_genomes_OTH_AN: Total allele count in other gnomAD genome samples (491 samples)
+	gnomAD_genomes_OTH_AF: Alternative allele frequency in other gnomAD genome samples (491 samples)
+	RegulomeDB_motif: motif the SNP resides (from RegulomeDB)
+	RegulomeDB_score: categorical score from RegulomeDB. The smaller, the more likely the SNP
+		affects binding
+	Motif_breaking: whether break a known motif (in-house script)
+	network_hub: whether the target gene is a network hub based on funseq-0.1 
+	ENCODE_annotated: whether annotated by ENCODE based on funseq-0.1
+	sensitive: whether defined as sensitive region based on funseq-0.1
+	ultra_sensitive: whether defined as ultra-sensitive region based funseq-0.1
+	target_gene: target gene (for promoter, enhancer, etc.) based on funseq-0.1
+	funseq_noncoding_score: funseq-like noncoding score range 0-6, each of the previous 5 columns 
+		contribute 1 if "YES", or 0 if "NO"; the column Motif_breaking contribute 1 if it is
+		not a "."
+	funseq2_noncoding_score: funseq2 noncoding score range 0-5.4
+		a weighted score designed for damaging prediction of cancer somatic SNPs
+	funseq2_noncoding_rankscore: the rank of the funseq2_noncoding_score among all funseq2_noncoding_scores in genome
+	CADD_raw: CADD raw score, the larger the number the more likely damaging
+	CADD_phred: CADD phred-like score, ranges 1-99, the larger the number the more likely 
+		damaging; score >10 means the variant in the top 10% (0.1) among the total
+		8.6 billion possible SNVs, >20 means in the top 1%, >30 means in the top 0.1%, etc.
+		CADD suggests a cutoff between 10 and 20 (e.g. 15)
+	CADD_raw_rankscore: the rank of the CADD_raw score among all CADD_raw scores in genome
+	fathmm-MKL_non-coding_score: fathmm-MKL non-coding prediction probability, the larger the number the more likely damaging; 
+		the threshold separating deleterious prediction and neutral prediction is 0.5.
+	fathmm-MKL_non-coding_rankscore: the rank of the fathmm-MKL_non-coding_score among all fathmm-MKL_non-coding_scores in genome
+	fathmm-MKL_non-coding_pred: If a fathmm-MKL_non-coding_score is >0.5 the corresponding nsSNV
+		is predicted as "D(AMAGING)"; otherwise it is predicted as "N(EUTRAL)".
+	fathmm-MKL_non-coding_group: fathmm-MKL non-coding group, the feature group used for the non-coding prediction 
+	fathmm-MKL_coding_score: fathmm-MKL coding prediction probability, the larger the number the more likely damaging
+		the threshold separating deleterious prediction and neutral prediction is 0.5.
+	fathmm-MKL_coding_rankscore: the rank of the fathmm-MKL_coding_score among all fathmm-MKL_coding_scores in genome
+	fathmm-MKL_coding_pred: If a fathmm-MKL_coding_score is >0.5 the corresponding nsSNV
+		is predicted as "D(AMAGING)"; otherwise it is predicted as "N(EUTRAL)".
+	fathmm-MKL_coding_group: fathmm-MKL coding group, the feature group used for the coding prediction.
+	ORegAnno_type: the type of regulatory region by ORegAnno
+	ORegAnno_PMID: the PMID of the paper describing the regulation
+	ENCODE_TFBS: name of the transcription factors (separated by ;) if the site is within a TFBS
+	ENCODE_TFBS_score: the higher the score the stronger the evidence of the TFBS
+	ENCODE_TFBS_cells: the cell lines (separated by ;) the TFBS was detected
+	ENCODE_Dnase_score: the higher the score the stronger the evidence of a DNase I 
+		hypersensitive site
+	ENCODE_Dnase_cells: number of cell lines supporting a DNase I hypersensitive site
+	FANTOM5_enhancer_permissive: whether the site is within a FANTOM5 phase 1+2 predicted permissive enhancer
+		Y (Yes) or N (No)
+	FANTOM5_enhancer_robust: whether the site is within a FANTOM5 phase 1 predicted robust enhancer
+		Y (Yes) or N (No)
+	FANTOM5_enhancer_target: if the site is within a FANTOM5 phase 1 predicted robust enhancer, 
+		this is the name of the FANTOM5 predicted target gene of the enhancer.
+	FANTOM5_enhancer_expressed_tissue_cell: tissue or cell the enhancer expressed (from FANTOM5 phase 1). 
+		multiple values are separated by ;
+		possible values: neuronal_stem_cell,myoblast,osteoblast,ciliated_epithelial_cell,
+		blood_vessel_endothelial_cell,mesothelial_cell,circulating_cell,T_cell,granulocyte,mast_cell,
+		sensory_epithelial_cell,astrocyte,mesenchymal_cell,fat_cell,chondrocyte,melanocyte,hepatocyte,
+		skeletal_muscle_cell,macrophage,keratinocyte,vascular_associated_smooth_muscle_cell,tendon_cell,
+		dendritic_cell,stromal_cell,neuron,reticulocyte,corneal_epithelial_cell,monocyte,acinar_cell,
+		natural_killer_cell,hepatic_stellate_cell,pericyte_cell,urothelial_cell,cardiac_myocyte,basophil,
+		neutrophil,lymphocyte_of_B_lineage,endothelial_cell_of_lymphatic_vessel,epithelial_cell_of_Malassez,
+		lens_epithelial_cell,epithelial_cell_of_prostate,epithelial_cell_of_esophagus,
+		mammary_epithelial_cell,preadipocyte,keratocyte,trabecular_meshwork_cell,respiratory_epithelial_cell,
+		enteric_smooth_muscle_cell,kidney_epithelial_cell,amniotic_epithelial_cell,cardiac_fibroblast,
+		fibroblast_of_choroid_plexus,fibroblast_of_the_conjuctiva,fibroblast_of_gingiva,
+		fibroblast_of_lymphatic_vessel,fibroblast_of_periodontium,fibroblast_of_pulmonary_artery,
+		hair_follicle_cell,intestinal_epithelial_cell,iris_pigment_epithelial_cell,placental_epithelial_cell,
+		retinal_pigment_epithelial_cell,bronchial_smooth_muscle_cell,smooth_muscle_cell_of_the_esophagus,
+		smooth_muscle_cell_of_trachea,uterine_smooth_muscle_cell,skin_fibroblast,gingival_epithelial_cell,
+		fibroblast_of_tunica_adventitia_of_artery,endothelial_cell_of_hepatic_sinusoid,
+		smooth_muscle_cell_of_prostate,lymph_node,large_intestine,blood,throat,testis,stomach,heart,brain,
+		eye,penis,female_gonad,uterus,vagina,adipose_tissue,esophagus,salivary_gland,skeletal_muscle_tissue,
+		smooth_muscle_tissue,urinary_bladder,pancreas,tongue,submandibular_gland,parotid_gland,blood_vessel,
+		placenta,thyroid_gland,lung,skin_of_body,spleen,liver,small_intestine,gallbladder,kidney,spinal_cord,
+		umbilical_cord,meninx,prostate_gland,thymus,tonsil,olfactory_region,internal_male_genitalia
+	FANTOM5_enhancer_differentially_expressed_tissue_cell: tissue or cell the enhancer expressed differentially 
+		(from FANTOM5 phase 1). multiple values are separated by ;
+		possible values: neuronal_stem_cell,myoblast,osteoblast,ciliated_epithelial_cell,
+		blood_vessel_endothelial_cell,mesothelial_cell,circulating_cell,T_cell,granulocyte,mast_cell,
+		sensory_epithelial_cell,astrocyte,mesenchymal_cell,fat_cell,chondrocyte,melanocyte,hepatocyte,
+		skeletal_muscle_cell,macrophage,keratinocyte,vascular_associated_smooth_muscle_cell,tendon_cell,
+		dendritic_cell,stromal_cell,neuron,reticulocyte,corneal_epithelial_cell,monocyte,acinar_cell,
+		natural_killer_cell,hepatic_stellate_cell,pericyte_cell,urothelial_cell,cardiac_myocyte,basophil,
+		neutrophil,lymphocyte_of_B_lineage,endothelial_cell_of_lymphatic_vessel,epithelial_cell_of_Malassez,
+		lens_epithelial_cell,epithelial_cell_of_prostate,epithelial_cell_of_esophagus,
+		mammary_epithelial_cell,preadipocyte,keratocyte,trabecular_meshwork_cell,respiratory_epithelial_cell,
+		enteric_smooth_muscle_cell,kidney_epithelial_cell,amniotic_epithelial_cell,cardiac_fibroblast,
+		fibroblast_of_choroid_plexus,fibroblast_of_the_conjuctiva,fibroblast_of_gingiva,
+		fibroblast_of_lymphatic_vessel,fibroblast_of_periodontium,fibroblast_of_pulmonary_artery,
+		hair_follicle_cell,intestinal_epithelial_cell,iris_pigment_epithelial_cell,placental_epithelial_cell,
+		retinal_pigment_epithelial_cell,bronchial_smooth_muscle_cell,smooth_muscle_cell_of_the_esophagus,
+		smooth_muscle_cell_of_trachea,uterine_smooth_muscle_cell,skin_fibroblast,gingival_epithelial_cell,
+		fibroblast_of_tunica_adventitia_of_artery,endothelial_cell_of_hepatic_sinusoid,
+		smooth_muscle_cell_of_prostate,lymph_node,large_intestine,blood,throat,testis,stomach,heart,brain,
+		eye,penis,female_gonad,uterus,vagina,adipose_tissue,esophagus,salivary_gland,skeletal_muscle_tissue,
+		smooth_muscle_tissue,urinary_bladder,pancreas,tongue,submandibular_gland,parotid_gland,blood_vessel,
+		placenta,thyroid_gland,lung,skin_of_body,spleen,liver,small_intestine,gallbladder,kidney,spinal_cord,
+		umbilical_cord,meninx,prostate_gland,thymus,tonsil,olfactory_region,internal_male_genitalia
+	FANTOM5_CAGE_peak_permissive: whether the site is within a FANTOM5 phase 1 permissive Cap Analysis of Gene Expression 
+		(CAGE) peak permissive set. Y (Yes) or N (No). A CAGE peak generally suggests a promoter region
+	FANTOM5_CAGE_peak_robust: whether the site is within a FANTOM5 phase 1+2 robust Cap Analysis of Gene Expression 
+		(CAGE) peak robust set. Y (Yes) or N (No). A CAGE peak generally suggests a promoter region
+	Ensembl_Regulatory_Build_feature_type: genome segment prediction based on 68 cell types from
+		ENCODE, BLUEPRINT and Roadmap. Predicted states: CTCF_Binding_Site, Enhancer,
+		Open_chromatin, Promoter_Flanking_Region, TF_binding_site, Promoter
+	Ensembl_Regulatory_Build_ID: Ensembl ID for the regulatory feature
+	Ensembl_Regulatory_Build_TFBS: TFBS from Ensembl Regulatory Build. Multiple TFBS separated by ";"
+	Ensembl_Regulatory_Build_TFBS_matrix: TF binding matrix ID
+	
+The following columns are nonsynonymous or splicing SNPs with entries in dbNSFP v2.9.3 (multiple entries separated by "|"):
+	aaref: reference amino acid
+		"-" if the variant is a splicing site SNP (2bp on each end of an intron)
+	aaalt: alternative amino acid
+		"-" if the variant is a splicing site SNP (2bp on each end of an intron)
+	genename: gene name; if the nsSNV can be assigned to multiple genes, gene names are separated
+		by ";"
+	Uniprot_acc: Uniprot accession number. Multiple entries separated by ";".
+	Uniprot_id: Uniprot ID number. Multiple entries separated by ";".
+	Uniprot_aapos: amino acid position as to Uniprot. Multiple entries separated by ";".
+	Interpro_domain: domain or conserved site on which the variant locates. Domain 
+		annotations come from Interpro database. The number in the brackets following
+		a specific domain is the count of times Interpro assigns the variant position to  
+		that domain, typically coming from different predicting databases. Multiple entries 
+		separated by ";".
+	cds_strand: coding sequence (CDS) strand (+ or -)
+	refcodon: reference codon
+	SLR_test_statistic: SLR test statistic for testing natural selection on codons. 
+		A negative value indicates negative selection, and a positive value indicates 
+		positive selection. Larger magnitude of the value suggests stronger evidence.
+	codonpos: position on the codon (1, 2 or 3)
+	fold-degenerate: degenerate type (0, 2 or 3)
+	Ensembl_geneid: Ensembl gene id
+	Ensembl_transcriptid: Ensembl transcript ids (separated by ";")
+	aapos: amino acid position as to the protein
+		"-1" if the variant is a splicing site SNP (2bp on each end of an intron)
+	aapos_SIFT: ENSP id and amino acid positions corresponding to SIFT scores.
+		Multiple entries separated by ";"
+	aapos_FATHMM: ENSP id and amino acid positions corresponding to FATHMM scores.
+		Multiple entries separated by ";"
+	SIFT_score: SIFT score (SIFTori). Scores range from 0 to 1. The smaller the score the
+		more likely the SNP has damaging effect. Multiple scores separated by ";".
+	SIFT_converted_rankscore: SIFTori scores were first converted to SIFTnew=1-SIFTori, 
+		then ranked among all SIFTnew scores in dbNSFP. The rankscore is the ratio of 
+		the rank the SIFTnew score over the total number of SIFTnew scores in dbNSFP. 
+		If there are multiple scores, only the most damaging (largest) rankscore is presented.
+		The rankscores range from 0.02654 to 0.87932.
+	SIFT_pred: If SIFTori is smaller than 0.05 (rankscore>0.55) the corresponding NS is 
+		predicted as "D(amaging)"; otherwise it is predicted as "T(olerated)". 
+		Multiple predictions separated by ";"
+	Polyphen2_HDIV_score: Polyphen2 score based on HumDiv, i.e. hdiv_prob.
+		The score ranges from 0 to 1. Multiple entries separated by ";".
+	Polyphen2_HDIV_rankscore: Polyphen2 HDIV scores were first ranked among all HDIV scores 
+		in dbNSFP. The rankscore is the ratio of the rank the score over the total number of 
+		the scores in dbNSFP. If there are multiple scores, only the most damaging (largest) 
+		rankscore is presented. The scores range from 0.02656 to 0.89917.
+	Polyphen2_HDIV_pred: Polyphen2 prediction based on HumDiv, "D" ("probably damaging", 
+		HDIV score in [0.957,1] or rankscore in [0.52996,0.89917]), "P" ("possibly damaging", 
+		HDIV score in [0.453,0.956] or rankscore in [0.34412,0.52842]) and "B" ("benign", 
+		HDIV score in [0,0.452] or rankscore in [0.02656,0.34399]). Score cutoff for binary 
+		classification is 0.5 for HDIV score or 0.35411 for rankscore, i.e. the prediction is 
+		"neutral" if the HDIV score is smaller than 0.5 (rankscore is smaller than 0.35411), 
+		and "deleterious" if the HDIV score is larger than 0.5 (rankscore is larger than 
+		0.35411). Multiple entries are separated by ";".
+	Polyphen2_HVAR_score: Polyphen2 score based on HumVar, i.e. hvar_prob.
+		The score ranges from 0 to 1. Multiple entries separated by ";".
+	Polyphen2_HVAR_rankscore: Polyphen2 HVAR scores were first ranked among all HVAR scores 
+		in dbNSFP. The rankscore is the ratio of the rank the score over the total number of 
+		the scores in dbNSFP. If there are multiple scores, only the most damaging (largest) 
+		rankscore is presented. The scores range from 0.01281 to 0.9711.
+	Polyphen2_HVAR_pred: Polyphen2 prediction based on HumVar, "D" ("probably damaging", 
+		HVAR score in [0.909,1] or rankscore in [0.62955,0.9711]), "P" ("possibly damaging", 
+		HVAR in [0.447,0.908] or rankscore in [0.44359,0.62885]) and "B" ("benign", HVAR 
+		score in [0,0.446] or rankscore in [0.01281,0.44315]). Score cutoff for binary 
+		classification is 0.5 for HVAR score or 0.45998 for rankscore, i.e. the prediction 
+		is "neutral" if the HVAR score is smaller than 0.5 (rankscore is smaller than 
+		0.45998), and "deleterious" if the HVAR score is larger than 0.5 (rankscore is larger 
+		than 0.45998). Multiple entries are separated by ";".
+	LRT_score: The original LRT two-sided p-value (LRTori), ranges from 0 to 1.
+	LRT_converted_rankscore: LRTori scores were first converted as LRTnew=1-LRTori*0.5 if 
+		Omega<1, or LRTnew=LRTori*0.5 if Omega>=1. Then LRTnew scores were ranked among all 
+		LRTnew scores in dbNSFP. The rankscore is the ratio of the rank over the total number 
+		of the scores in dbNSFP. The scores range from 0.00166 to 0.85682.
+	LRT_pred: LRT prediction, D(eleterious), N(eutral) or U(nknown), which is not solely 
+		determined by the score. 
+	MutationTaster_score: MutationTaster p-value (MTori), ranges from 0 to 1.
+	MutationTaster_converted_rankscore: The MTori scores were first converted. If the prediction 
+		is "A" or "D" MTnew=MTori; if the prediction is "N" or "P", MTnew=1-MTori. Then MTnew 
+		scores were ranked among all MTnew scores in dbNSFP. The rankscore is the ratio of the
+		rank of the score over the total number of MTnew scores in dbNSFP. The scores range
+		from 0.09067 to 0.80722.
+	MutationTaster_pred: MutationTaster prediction, "A" ("disease_causing_automatic"),
+		"D" ("disease_causing"), "N" ("polymorphism") or "P" ("polymorphism_automatic"). The 
+		score cutoff between "D" and "N" is 0.5 for MTori and 0.31655 for the rankscore.
+	MutationAssessor_score: MutationAssessor functional impact combined score (MAori). The 
+		score ranges from -5.135 to 6.49 in dbNSFP. Please refer to Reva et al. (2011)
+		Nucl. Acids Res. 39(17):e118 for details.
+	MutationAssessor_rankscore: MAori scores were ranked among all MAori scores in dbNSFP. 
+		The rankscore is the ratio of the rank of the score over the total number of MAori 
+		scores in dbNSFP. The scores range from 0 to 1.
+	MutationAssessor_pred: MutationAssessor's functional impact of a variant - 
+		predicted functional, i.e. high ("H") or medium ("M"), or predicted non-functional,
+		i.e. low ("L") or neutral ("N"). The MAori score cutoffs between "H" and "M", 
+		"M" and "L", and "L" and "N", are 3.5, 1.935 and 0.8, respectively. The rankscore cutoffs 
+		between "H" and "M", "M" and "L", and "L" and "N", are 0.92924, 0.51945 and 0.19692, 
+		respectively.
+	FATHMM_score: FATHMM default score (weighted for human inherited-disease mutations with
+		Disease Ontology) (FATHMMori). Scores range from -18.09 to 11.0. The smaller the score the
+		more likely the SNP has damaging effect. Multiple scores 
+		separated by ";" Please refer to Shihab et al. (2013) Human Mutation 34(1):57-65 for 
+		details.
+	FATHMM_rankscore: FATHMMnew=-FATHMMori were ranked among all FATHMMnew scores in dbNSFP. 
+		The rankscore is the ratio of the rank of the score over the total number of FATHMMnew 
+		scores in dbNSFP. If there are multiple scores, only the most damaging (smallest) 
+		rankscore is presented. The scores range from 0 to 1.
+	FATHMM_pred: If a FATHMMori score is <=-1.5 (or rankscore >=0.81415) the corresponding NS 
+		is predicted as "D(AMAGING)"; otherwise it is predicted as "T(OLERATED)".
+		Multiple predictions separated by ";"
+	MetaSVM_score: Our support vector machine (SVM) based ensemble prediction score, which 
+		incorporated 10 scores (SIFT, PolyPhen-2 HDIV, PolyPhen-2 HVAR, GERP++, MutationTaster, 
+		Mutation Assessor, FATHMM, LRT, SiPhy, PhyloP) and the maximum frequency observed in 
+		the 1000 genomes populations. Larger value means the SNV is more likely to be damaging. 
+		Scores range from -2 to 3 in dbNSFP.
+	MetaSVM_rankscore: MetaSVM scores were ranked among all MetaSVM scores in dbNSFP. 
+		The rankscore is the ratio of the rank of the score over the total number of MetaSVM 
+		scores in dbNSFP. The scores range from 0 to 1.
+	MetaSVM_pred: Prediction of our SVM based ensemble prediction score,"T(olerated)" or 
+		"D(amaging)". The score cutoff between "D" and "T" is 0. The rankscore cutoff between
+		"D" and "T" is 0.83357.
+	MetaLR_score: Our logistic regression (LR) based ensemble prediction score, which 
+		incorporated 10 scores (SIFT, PolyPhen-2 HDIV, PolyPhen-2 HVAR, GERP++, MutationTaster, 
+		Mutation Assessor, FATHMM, LRT, SiPhy, PhyloP) and the maximum frequency observed in 
+		the 1000 genomes populations. Larger value means the SNV is more likely to be damaging. 
+		Scores range from 0 to 1.
+	MetaLR_rankscore: MetaLR scores were ranked among all MetaLR scores in dbNSFP. The rankscore 
+		is the ratio of the rank of the score over the total number of MetaLR scores in dbNSFP. 
+		The scores range from 0 to 1.
+	MetaLR_pred: Prediction of our MetaLR based ensemble prediction score,"T(olerated)" or 
+		"D(amaging)". The score cutoff between "D" and "T" is 0.5. The rankscore cutoff between 
+		"D" and "T" is 0.82268.
+	Reliability_index: Number of observed component scores (except the maximum frequency in 
+		the 1000 genomes populations) for MetaSVM and MetaLR. Ranges from 1 to 10. As MetaSVM 
+		and MetaLR scores are calculated based on imputed data, the less missing component 
+		scores, the higher the reliability of the scores and predictions. 
+	VEST3_score: VEST 3.0 score. Score ranges from 0 to 1. The larger the score the more likely
+		the mutation may cause functional change. In case there are multiple scores for the 
+		same variant, the largest score (most damaging) is presented. Please refer to 
+		Carter et al., (2013) BMC Genomics. 14(3) 1-16 for details.
+		Please note this score is free for non-commercial use. For more details please refer to 
+		http://wiki.chasmsoftware.org/index.php/SoftwareLicense. Commercial users should contact 
+		the Johns Hopkins Technology Transfer office.
+	VEST3_rankscore: VEST3 scores were ranked among all VEST3 scores in dbNSFP. 
+		The rankscore is the ratio of the rank of the score over the total number of VEST3 
+		scores in dbNSFP. The scores range from 0 to 1. 
+		Please note VEST score is free for non-commercial use. For more details please refer to 
+		http://wiki.chasmsoftware.org/index.php/SoftwareLicense. Commercial users should contact 
+		the Johns Hopkins Technology Transfer office.
+	PROVEAN_score: PROVEAN score (PROVEANori). Scores range from -14 to 14. The smaller the score 
+		the more likely the SNP has damaging effect. Multiple scores separated by ";". Details 
+		can be found in DOI: 10.1371/journal.pone.0046688
+	PROVEAN_converted_rankscore: PROVEANori were first converted to PROVEANnew=1-(PROVEANori+14)/28, 
+		then ranked among all PROVEANnew scores in dbNSFP. The rankscore is the ratio of 
+		the rank the PROVEANnew score over the total number of PROVEANnew scores in dbNSFP. 
+		If there are multiple scores, only the most damaging (largest) rankscore is presented.
+	PROVEAN_pred: If PROVEANori <= -2.5 (rankscore>=0.59) the corresponding NS is 
+		predicted as "D(amaging)"; otherwise it is predicted as "N(eutral)". 
+		Multiple predictions separated by ";"\n"+
+	M-CAP_score: M-CAP score (details in DOI: 10.1038/ng.3703). Scores range from 0 to 1. The larger
+		the score the more likely the SNP has damaging effect. 
+	M-CAP_rankscore: M-CAP scores were ranked among all M-CAP scores in dbNSFP. The rankscore is
+		the ratio of the rank of the score over the total number of M-CAP scores in dbNSFP.
+	M-CAP_pred: Prediction of M-CAP score based on the authors' recommendation, "T(olerated)" or
+		"D(amaging)". The score cutoff between "D" and "T" is 0.025.\n"+
+	REVEL_score: REVEL is an ensemble score based on 13 individual scores for predicting the
+		pathogenicity of missense variants. Scores range from 0 to 1. The larger the score the more 
+		likely the SNP has damaging effect. "REVEL scores are freely available for non-commercial use.  
+		For other uses, please contact Weiva Sieh" (weiva.sieh@mssm.edu)
+	REVEL_rankscore: REVEL scores were ranked among all REVEL scores in dbNSFP. The rankscore is
+		the ratio of the rank of the score over the total number of REVEL scores in dbNSFP.
+	MutPred_score: General MutPred score. Scores range from 0 to 1. The larger the score the more
+		likely the SNP has damaging effect.
+	MutPred_rankscore: MutPred scores were ranked among all MutPred scores in dbNSFP. The rankscore is
+		the ratio of the rank of the score over the total number of MutPred scores in dbNSFP.
+	MutPred_protID: UniProt accession or Ensembl transcript ID used for MutPred_score calculation.
+	MutPred_AAchange: Amino acid change used for MutPred_score calculation.
+	MutPred_Top5features: Top 5 features (molecular mechanisms of disease) as predicted by MutPred with
+		p values. MutPred_score > 0.5 and p < 0.05 are referred to as actionable hypotheses.
+		MutPred_score > 0.75 and p < 0.05 are referred to as confident hypotheses.
+		MutPred_score > 0.75 and p < 0.01 are referred to as very confident hypotheses.");
+	
+The following columns are cell type specific:
