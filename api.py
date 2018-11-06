@@ -1,6 +1,7 @@
-from flask import Flask, request, send_from_directory, jsonify, abort
+from flask import Flask, request, send_from_directory, jsonify, abort, render_template
 from functools import wraps
 from data_retrieve import *
+from process_header import *
 import config
 import json
 
@@ -57,7 +58,7 @@ def get_meta():
 		'format':'text' }
 	return jsonify(res)
 
-@app.route('/api/region', methods=["POST"])
+@app.route('/api/region/', methods=["POST"])
 @preprocess_post_header
 def get_region():
 	query_args = request.data
@@ -73,7 +74,7 @@ def get_region():
 		'header':request.data['header'] }
         return jsonify(res)
 
-@app.route('/api/variant', methods=["POST"])
+@app.route('/api/variant/', methods=["POST"])
 @preprocess_post_header
 def get_var():
 	query_args = request.data
@@ -104,6 +105,43 @@ def gene():
 	res = {'data':data,
                 'status':'success'}
 	return jsonify(res)
+
+@app.route('/config')
+def config_page():
+	return render_template('config.html')
+
+class Item:
+	def __init__(self, v):
+		self.v = v
+		self.key = v.replace("#","").replace("(","").replace(")","")
+		self.num = len(dup_dic[v])
+
+@app.route('/show')
+def api_show():
+	single_items = []
+	for i in sorted(single):
+		anno_dic[i].v = i
+		key = i.replace("#","")
+		anno_dic[i].key = key
+		single_items.append(anno_dic[i])
+	mul_items = []
+	sub_items = {}
+	dup_keys = [i for i in sorted(dup_dic)]
+	print dup_keys
+	for i in dup_keys:
+		mul_items.append(Item(i))
+		sub_items[i] = []
+		for k in dup_dic[i]:
+			anno_dic[k].v = k
+			key = k.replace("#","")
+			anno_dic[k].key = key
+			sub_items[i].append(anno_dic[k])
+	total_count = len(single) + len(dup_dic)
+	data = {'single_items' : single_items, 
+			'mul_items' : mul_items, 
+			'sub_items' : sub_items, 
+			'total_count' : total_count}
+	return render_template('show.html', **data)
 
 @app.route('/api/test', methods=['POST'])
 @preprocess_post_header
