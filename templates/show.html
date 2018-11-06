@@ -72,7 +72,7 @@
 				<h1> API examples(with default annotation options)</h1>
 				<button id="exp_variant" type="button" class="btn btn-success">Get Single Variant</button>
 				<button id="exp_region" type="button" class="btn btn-success">Get Variants in a Region</button>
-				<div class= "form-check">
+				<div class="form-check">
 					<input type="checkbox" class="form-check-input" id="use_default" checked>
 					<label class="form-check-label" for="use_default">use default options</label>
 				</div>
@@ -88,7 +88,7 @@
 					</div>
 				</div>
 				<div clss='row'>
-					<div class='col'>
+					<div class='col table_col'>
 						<table id="resTable" class="display" width="100%"></table>
 					</div>
 				</div>
@@ -121,12 +121,12 @@
 			}
 		});
 		function get_header() {
-				var select = $("input:checked.header_option").not(".has_child_check");
-				var items = [];
-				for (i = 0; i < select.length; i++) {
-					items.push(select[i].value.replace("^d_", ""));
-				}
-				return items;
+			var select = $("input:checked.header_option").not(".has_child_check");
+			var items = [];
+			for (i = 0; i < select.length; i++) {
+				items.push(select[i].value.replace("^d_", ""));
+			}
+			return items;
 		}
 		$("#download").click(
 			function () {
@@ -201,10 +201,12 @@
 		default_options = { 'annotation_headers': ["1000Gp3_AC", "1000Gp3_AF", "1000Gp3_AFR_AC", "1000Gp3_AFR_AF", "1000Gp3_AMR_AC", "1000Gp3_AMR_AF", "1000Gp3_EAS_AC", "1000Gp3_EAS_AF", "1000Gp3_EUR_AC", "1000Gp3_EUR_AF", "1000Gp3_SAS_AC", "1000Gp3_SAS_AF", "ANNOVAR_refseq_Closest_gene(intergenic_only)", "ANNOVAR_refseq_Effect", "ANNOVAR_refseq_Exon_Rank", "ANNOVAR_refseq_Gene_ID", "ANNOVAR_refseq_HGVSc", "ANNOVAR_refseq_HGVSp", "ANNOVAR_refseq_Transcript_ID", "ANNOVAR_refseq_summary", "ANNOVAR_ucsc_Closest_gene(intergenic_only)", "ANNOVAR_ucsc_Effect", "ANNOVAR_ucsc_Exon_Rank", "ANNOVAR_ucsc_Gene_ID", "ANNOVAR_ucsc_HGVSc", "ANNOVAR_ucsc_HGVSp", "ANNOVAR_ucsc_Transcript_ID", "ANNOVAR_ucsc_summary", "COSMIC_CNT", "COSMIC_ID", "FANTOM5_CAGE_peak_permissive", "FANTOM5_CAGE_peak_robust", "FANTOM5_enhancer_differentially_expressed_tissue_cell", "FANTOM5_enhancer_expressed_tissue_cell", "FANTOM5_enhancer_permissive", "FANTOM5_enhancer_robust", "FANTOM5_enhancer_target", "Uniprot_aapos", "Uniprot_acc", "Uniprot_id"] };
 		$('#exp_variant').click(
 			function () {
-				if ($("#use_default").checked)
+				if ($('#use_default').is(':checked'))
 					r = default_options;
-				else
-					r = {'annotation_headers': get_header()};
+				else {
+					r = {};
+					r.annotation_headers = get_header()
+				}
 				r.chrom = "chr2";
 				r.pos = 100008;
 				r.ref = "T";
@@ -219,10 +221,12 @@
 		);
 		$('#exp_region').click(
 			function () {
-				if ($("#use_default").checked)
+				if ($('#use_default').is(':checked'))
 					r = default_options;
-				else
-					r = {'annotation_headers': get_header()};
+				else {
+					r = {};
+					r.annotation_headers = get_header()
+				}
 				r.chrom = "chr2";
 				r.start = 100007;
 				r.end = 101000;
@@ -235,17 +239,24 @@
 			}
 		);
 		function show_res(res, slec) {
-			dataSet = res.data;
-			col = [];
+			var dataSet = res.data;
+			var col = [];
 			for (i = 0; i < res.header.length; i++) {
 				col.push({ 'title': res.header[i] });
 			}
-			if (typeof table !== 'undefined') table.destroy();
-			table = $(slec).DataTable({
-				data: dataSet,
-				columns: col,
+			//$(slec).dataTable().destory();
+			if ($.fn.DataTable.isDataTable(slec)) {
+				$(slec).DataTable().clear().destroy();
+				$(slec).empty();
+			}
+			var options = {}
+			options = {
+				"destroy": true,
+				"data": dataSet,
+				"columns": col,
 				"scrollX": true
-			});
+			};
+			$(slec).DataTable(options);
 		}
 	</script>
 </body>
