@@ -8,7 +8,7 @@ import config
 import json
 
 app = Flask(__name__, static_url_path='')
-CORS(app, resources=r'/api/*')
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 def get_index_list(index_config=None):
