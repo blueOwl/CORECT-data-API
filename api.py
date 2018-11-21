@@ -2,11 +2,14 @@ from flask import Flask, request, send_from_directory, jsonify, abort, render_te
 from functools import wraps
 from data_retrieve import *
 from process_header import *
+from flask_cors import CORS
+
 import config
 import json
 
 app = Flask(__name__, static_url_path='')
-
+CORS(app, resources=r'/api/*')
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 def get_index_list(index_config=None):
 	f = open(config.HEADER_INDEX)
@@ -55,6 +58,11 @@ def api_origin():
 	link_list = [config.HOST + "/download/" + str(i) for i in range(1,23)]
 	res = {'data':link_list,
 		'format': 'links'}
+	return jsonify(res)
+
+@app.route('/api/header_tree/', methods=['GET'])
+def get_header_tree():
+	res = {'header_tree_array': tree_array}
 	return jsonify(res)
 
 @app.route('/api', methods=['GET'])
@@ -125,6 +133,7 @@ class Item:
 def api_show():
 	single_items = []
 	for i in sorted(single):
+		print i
 		anno_dic[i].v = i
 		key = i.replace("#","")
 		anno_dic[i].key = key
@@ -132,7 +141,6 @@ def api_show():
 	mul_items = []
 	sub_items = {}
 	dup_keys = [i for i in sorted(dup_dic)]
-	print dup_keys
 	for i in dup_keys:
 		mul_items.append(Item(i))
 		sub_items[i] = []
@@ -154,4 +162,4 @@ def test():
 	print request.data
 
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0")
+    app.run(debug=True, host = "0.0.0.0")
