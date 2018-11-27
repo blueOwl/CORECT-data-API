@@ -4,15 +4,18 @@ import json
 import re
 
 indexed_data_set = {}
+indexed_data_files = {}
 def get_symbol_position():
 	d = json.load(open(config.GENE_REGION_FILE))
 	return {str(k):d[k] for k in d}
 
 symbol_positions = get_symbol_position()
 for i in range(1,23):
-	indexed_data_set[i] = pysam.TabixFile("data/chr" +  str(i) + ".tsv.vcf.sorted.gz")
+	indexed_data_files[i] = "data/chr" +  str(i) + ".tsv.vcf.sorted.gz"
 
 def region_q(header_index, chrom, start, end):
+	for i in range(1,23):
+		indexed_data_set[i] = pysam.TabixFile(indexed_data_files[i])	
 	data = []
 	try:
 		for row in indexed_data_set[chrom].fetch(str(chrom), start, end):
