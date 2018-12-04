@@ -10,6 +10,8 @@ class Anno:
 		self.details = ''
 	def __str__(self):
 		return self.key
+	def get_detail(self):
+		return self.exp + self.details
 anno_dic = {}
 for i in f:
 	if len(i.rstrip().split()) == 0:continue
@@ -43,3 +45,26 @@ for i in sorted(anno_dic):
 				dup_dic[start].append(i)
 			else:
 				dup_dic[start] = [i]
+class Tree_node:
+	id = 0
+	def __init__(self, name = '', detail = None, parent_id = 0):
+		self.id = Tree_node.id
+		self.name = name
+		self. detail = detail
+		self.parent_id = parent_id
+		Tree_node.id += 1
+	def get_node_dic(self):
+		return {'id':self.id, 'name':self.name, 'detail':self.detail, 'parent_id':self.parent_id}
+tree_array = []
+tree_array.append(Tree_node(name = 'root', parent_id = None).get_node_dic())
+for i in single:
+	tree_array.append(Tree_node(name = i, detail = anno_dic[i].get_detail()).get_node_dic())
+for i in dup_dic:
+	p = Tree_node(name = i)
+	tree_array.append(p.get_node_dic())
+	for k in dup_dic[i]:
+		tree_array.append(Tree_node(name = k, detail = anno_dic[k].get_detail(), parent_id = p.id).get_node_dic())
+if __name__ == "__main__":
+	print single
+	print dup_dic
+	print tree_array

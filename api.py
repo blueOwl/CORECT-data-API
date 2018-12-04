@@ -2,7 +2,7 @@ from flask import Flask, request, send_from_directory, jsonify, abort, render_te
 from functools import wraps
 from data_retrieve import *
 from process_header import *
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 import config
 import json
@@ -88,6 +88,7 @@ def get_region():
         return jsonify(res)
 
 @app.route('/api/variant/', methods=["POST"])
+@cross_origin(allow_headers=['Content-Type'])
 @preprocess_post_header
 def get_var():
 	query_args = request.data
