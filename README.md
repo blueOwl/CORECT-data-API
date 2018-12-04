@@ -69,16 +69,44 @@ To query all variants within a region, send `GET` request to
 |`start`| Yes |Chromosomal start position in base-pairs.|
 |`end`| Yes |Chromosomal end position in base-pairs.|
 |`header_id`|No|header id list. Seperated bu ` `|
+
 **Examples:**
 
 `/api/region/?chrom=chr1&start=100000&end=200000&header_id=1%2022%203%204`
 
 ~~~
 {
-    "data": [
-        "2\t100008\t2:100008:T:A\tT\tA\t.\tPASS\t.\tintergenic\t.\t.\tENSG00000184731:ENST00000327669(dist=53623),ENSG00000227061:ENST00000437798(dist=97561)\t.\t.\t.\t.(0):intergenic(1)\tintergenic_region\tMODIFIER\t.\t.\t.\t.\tFAM110C-AC079779.7\tENSG00000184731-ENSG00000227061\tn.100008T>A\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\tFAM110C-AC079779.7(1):intergenic_region(1)\tintergenic_variant..."
-    ],
-    "format": "vcf"
+  "data": [
+    [
+      "1", 
+      "103026", 
+      "G", 
+      "C", 
+      ".", 
+      ".", 
+      "."
+    ], 
+    [
+      "1", 
+      "139422", 
+      "G", 
+      "A", 
+      ".", 
+      ".", 
+      "."
+    ]
+  ], 
+  "header": [
+    "#chr", 
+    "pos", 
+    "ref", 
+    "alt", 
+    "Motif_breaking", 
+    "sensitive", 
+    "aaref"
+  ], 
+  "status": "success"
+}
 }
 ~~~
 
