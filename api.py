@@ -71,6 +71,18 @@ def get_meta():
 		'format':'text' }
 	return jsonify(res)
 
+@app.route('/api/region_test/', methods=["POST", "GET"])
+@preprocess_post_header
+def get_region_test():
+	query_args = request.data
+	header_index = query_args.get('header_index')
+	test_variants = open(config.TEST_VARIANTS)
+	res = []
+	for i in test_variants: 
+		line = i.split()
+		res.append([line[i] for i in header_index])
+	return jsonify(res)
+
 @app.route('/api/region/', methods=["POST"])
 @preprocess_post_header
 def get_region():
