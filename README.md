@@ -61,17 +61,17 @@ To download all original data files, request the download url by
 
 To query all variants within a region, send `GET` request to 
 
-`http://206.189.218.218:5000/api/region`. The following table lists all supported parameters.
+`/api/region/`. The following table lists all supported parameters.
 
 |Parameter | Required | Description |
 |------------|---------|----|
 |`chrom `| Yes|Chromosome name.|
 |`start`| Yes |Chromosomal start position in base-pairs.|
 |`end`| Yes |Chromosomal end position in base-pairs.|
-
+|`header_id`|No|header id list. Seperated bu ` `|
 **Examples:**
 
-`http://206.189.218.218:5000/api/region?chrom=chr2&start=100000&end=100100`
+`/api/region/?chrom=chr1&start=100000&end=200000&header_id=1%2022%203%204`
 
 ~~~
 {

@@ -64,6 +64,7 @@ for i in dup_dic:
 	tree_array.append(p.get_node_dic())
 	for k in dup_dic[i]:
 		tree_array.append(Tree_node(name = k, detail = anno_dic[k].get_detail(), parent_id = p.id).get_node_dic())
+
 if __name__ == "__main__":
 	print single
 	print dup_dic

@@ -1,8 +1,9 @@
 from flask import Flask, request, send_from_directory, jsonify, abort, render_template
 from functools import wraps
+from flask_cors import CORS, cross_origin
 from data_retrieve import *
 from process_header import *
-from flask_cors import CORS, cross_origin
+from utils import header_id_map
 
 import config
 import json
@@ -36,16 +37,25 @@ def get_index_list(index_config=None):
 def preprocess_post_header(f):
 	@wraps(f)
 	def decorated_function(*args, **kwargs):
-		if not request.json:
-			abort(400)
-		r_data = request.get_data()
-		j_data = json.loads(r_data)
-		#pross j_data
 		request.data = {}
-		for k in j_data:
-			request.data[str(k)] = j_data[k]
-		request.data['header_index'], request.data['header'] = get_index_list(request.data.get('annotation_headers', None))
-		return f(*args, **kwargs)
+		if request.method == 'POST':
+			if not request.json:
+				abort(400)
+			r_data = request.get_data()
+			j_data = json.loads(r_data)
+			#pross j_data
+			for k in j_data:
+				request.data[str(k)] = j_data[k]
+			request.data['header_index'], request.data['header'] = get_index_list(request.data.get('annotation_headers', None))
+		if request.method == "GET":
+			args = request.args
+			for k in args: request.data[str(k)] = args[k]
+			headers = [header_id_map[header_id] for header_id in args.get('header_id','').split(' ') if header_id in header_id_map]
+			print headers
+			print args.get('header_id','')
+			request.data['header_index'], request.data['header'] = get_index_list(headers)
+		#return f(*args, **kwargs)
+		return f()
 	return decorated_function
 
 @app.route('/api/download/<chrsm>', methods=['GET'])
@@ -83,10 +93,17 @@ def get_region_test():
 		res.append([line[i] for i in header_index])
 	return jsonify(res)
 
-@app.route('/api/region/', methods=["POST"])
+def region_para_check(data):
+	if not 'chrom' in data or not 'start' in data or not 'end' in data:
+		return False
+	return True
+
+@app.route('/api/region/', methods=["POST", "GET"])
 @preprocess_post_header
 def get_region():
 	query_args = request.data
+	if not region_para_check(query_args):
+		abort(400)
 	chrom = query_args.get('chrom')
 	start = query_args.get('start')
 	end = query_args.get('end')
